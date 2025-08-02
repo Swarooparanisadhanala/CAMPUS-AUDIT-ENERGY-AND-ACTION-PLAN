@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Energy Audit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fff4;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 { color: #2f855a; }
+    .input-box {
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #c6f6d5;
+      border-radius: 10px;
+      background: white;
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #a0aec0;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      background: #38a169;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #2f855a; }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #22543d;
+    }
+
+    /* Help popup */
+    #helpModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .help-content {
+      background: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+      text-align: left;
+    }
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Campus Energy Audit Dashboard ⚡</h1>
+  <p>Calculate your energy usage and find potential savings</p>
+
+  <!-- HELP Button -->
+  <button onclick="document.getElementById('helpModal').style.display='block'">HELP ❓</button>
+
+  <!-- Input Box -->
+  <div class="input-box">
+    <h3>Enter Appliance Details</h3>
+    <input type="text" id="appliance" placeholder="Appliance Name (e.g. Fan)">
+    <input type="number" id="watt" placeholder="Wattage (W)">
+    <input type="number" id="count" placeholder="Number of Appliances">
+    <input type="number" id="hours" placeholder="Hours used per day">
+    <br>
+    <button onclick="calculateEnergy()">Calculate kWh</button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <!-- Help Modal -->
+  <div id="helpModal">
+    <div class="help-content">
+      <span class="close-btn" onclick="document.getElementById('helpModal').style.display='none'">&times;</span>
+      <h2>💡 What is kWh?</h2>
+      <p>kWh (kilowatt-hour) is the unit of electricity.  
+      1 kWh = 1000W running for 1 hour.  
+      Example: 100W fan × 10 hours = 1 kWh</p>
+      
+      <h2>⚡ What are Appliances?</h2>
+      <p>Electrical devices on campus that use electricity:  
+      - Lights/Bulbs (LED ~15W, Tube ~40W)  
+      - Fans (~75W)  
+      - AC (~1500W)  
+      - Projectors, Computers</p>
+      
+      <h2>📝 How to Use</h2>
+      <p>1. Enter appliance name  
+      2. Enter wattage (check on device)  
+      3. Enter number of appliances  
+      4. Enter hours used per day  
+      → Click Calculate to see kWh usage</p>
+    </div>
+  </div>
+
+  <script>
+    function calculateEnergy() {
+      let appliance = document.getElementById("appliance").value.trim();
+      let watt = parseFloat(document.getElementById("watt").value);
+      let count = parseInt(document.getElementById("count").value);
+      let hours = parseFloat(document.getElementById("hours").value);
+
+      if(!appliance || isNaN(watt) || isNaN(count) || isNaN(hours)) {
+        document.getElementById("result").innerHTML = "⚠ Please enter all fields.";
+        return;
+      }
+
+      // Energy in kWh
+      let energy = (watt * hours * count) / 1000;
+      let monthly = energy * 30;
+
+      document.getElementById("result").innerHTML = 
+        `🔹 Appliance: <b>${appliance}</b><br>
+         🔹 Daily Consumption: <b>${energy.toFixed(2)} kWh</b><br>
+         🔹 Monthly Consumption: <b>${monthly.toFixed(2)} kWh</b><br>
+         💡 Tip: Switching to LEDs can save up to 50% energy!`;
+    }
+  </script>
+
+</body>
+</html>
