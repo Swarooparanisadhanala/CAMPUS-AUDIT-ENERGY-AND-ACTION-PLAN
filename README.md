@@ -6,11 +6,11 @@ Goal: Identify energy consumption patterns and suggest methods to reduce energy 
 
 Focus Areas:
 
-Auditing energy usage in classrooms, labs, and common areas
+>Auditing energy usage in classrooms, labs, and common areas
 
-Promoting awareness campaigns for energy conservation
+>Promoting awareness campaigns for energy conservation
 
-Designing an action plan for sustainability
+>Designing an action plan for sustainability
 
 🛠 Tools & Technologies Used
 Category	Tools / Technologies
